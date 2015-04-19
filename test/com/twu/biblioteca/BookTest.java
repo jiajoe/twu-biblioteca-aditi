@@ -14,7 +14,7 @@ public class BookTest {
     private Book book;
 
     @Before
-    public void instantiateOnce() {
+    public void setUp() {
         book = new Book("yes","yes",1992);
     }
 
@@ -35,6 +35,4 @@ public class BookTest {
         int year = book.getYear();
         assertEquals(year, 1992);
     }
-
-
 }

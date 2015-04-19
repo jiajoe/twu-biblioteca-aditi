@@ -1,11 +1,8 @@
 package com.twu.biblioteca;
 
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.LinkedHashSet;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,41 +11,36 @@ import static org.junit.Assert.assertEquals;
  */
 public class BookCollectionHandlerTest {
 
-    private BookCollection list;
+    private BookCollectionHandler handler;
 
     @Before
-    public void instantiateOnce() {
-        list = new BookCollection();
+    public void setUp() {
+        handler = new BookCollectionHandler();
     }
 
     @Test
     public void bookShouldBeAddedToCollection() {
-        LinkedHashSet<Book> testList = list.getList();
-        Book book = new Book("ABC", "XYZ", 1990);
-        testList.add(book);
-        list.setList(testList);
-        assertEquals(list.getSize(), 1);
+        handler.add(new Book("ABC", "XYZ", 1990));
+        assertEquals(handler.getSize(), 1);
     }
 
     @Test
     public void bookShouldBeRemovedFromTheCollection() {
-        LinkedHashSet<Book> testList = list.getList();
         Book book = new Book("ABC", "XYZ", 1990);
-        testList.add(book);
-        testList.remove(book);
-        assertEquals(list.getSize(), 0);
+        handler.add(book);
+        handler.remove(book);
+        assertEquals(handler.getSize(), 0);
     }
 
-    //
-//    @Test
-//    public void bookShouldBeSearched(){
-//        LinkedHashSet<Book> testList=list.getList();
-//
-//    }
-//
-//    @Test
+    @Test
+    public void bookShouldBeSearchedFromTheCollection() {
+        String bookName = "ABC";
+        handler.add(new Book("ABC", "XYZ", 1990));
+        assertEquals(handler.searchByName(bookName).getName(), bookName);
+    }
+
     @After
     public void tearDown() {
-        list.setList(null);
+        handler.removeAll();
     }
 }

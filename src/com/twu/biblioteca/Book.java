@@ -8,11 +8,13 @@ public class Book {
     private String name;
     private String authorName;
     private int year;
+    private boolean available;
 
-    public Book(String name, String author, int year) {
+    public Book(String name, String author, int year, boolean available) {
         this.name = name;
         this.authorName = author;
         this.year = year;
+        this.available = available;
     }
 
     public String getName() {
@@ -25,5 +27,14 @@ public class Book {
 
     public int getYear() {
         return year;
+    }
+
+    public boolean setAvailability(boolean b) {
+        this.available = b;
+        return true;
+    }
+
+    public boolean getAvailability() {
+        return this.available;
     }
 }

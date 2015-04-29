@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 /**
@@ -17,8 +16,18 @@ public class BookCollectionHandler {
         return collection.add(book);
     }
 
-    public void remove(Book book) {
-        collection.remove(book);
+    public boolean checkOut(Book book, User user){
+        for (Book b : collection) {
+            if (b.getName().equals(book.getName())) {
+                if(b.getAvailability()==false){
+                    System.out.println("Book is already checked out.");
+                    return false;
+                }
+                user.addIssuedBooks(book);
+                return b.setAvailability(false);
+            }
+        }
+        return false;
     }
 
     public int getSize() {

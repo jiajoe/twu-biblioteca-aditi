@@ -20,22 +20,22 @@ public class BookCollectionHandlerTest {
 
     @Test
     public void bookShouldBeAddedToCollection() {
-        handler.add(new Book("ABC", "XYZ", 1990));
+        handler.add(new Book("ABC", "XYZ", 1990, true));
         assertEquals(handler.getSize(), 1);
     }
 
     @Test
     public void bookShouldBeRemovedFromTheCollection() {
-        Book book = new Book("ABC", "XYZ", 1990);
+        User u=new User("Aditi","aditim@thoughtworks.com","7680043133","123-9876","password1",null,true);
+        Book book = new Book("ABC", "XYZ", 1990, true);
         handler.add(book);
-        handler.remove(book);
-        assertEquals(handler.getSize(), 0);
+        assertEquals(handler.checkOut(book,u), true);
     }
 
     @Test
     public void bookShouldBeSearchedFromTheCollection() {
         String bookName = "ABC";
-        handler.add(new Book("ABC", "XYZ", 1990));
+        handler.add(new Book("ABC", "XYZ", 1990, true));
         assertEquals(handler.searchByName(bookName).getName(), bookName);
     }
 

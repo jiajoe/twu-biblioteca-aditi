@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,33 +21,46 @@ public class MainMenuTest {
     public void mainMenuShouldListAvailableBooks() {
         String expected = "ABC DEF";
 
-        mainMenu.addBookForTest(new Book("ABC", "XYZ", 1992));
-        mainMenu.addBookForTest(new Book("DEF", "PQR", 1993));
+        mainMenu.addBookForTest(new Book("ABC", "XYZ", 1992, true));
+        mainMenu.addBookForTest(new Book("DEF", "PQR", 1993, true));
 
         assertEquals(mainMenu.listBooks(), expected);
     }
 
     @Test
     public void mainMenuShouldCheckOutBook() {
-        Book b = new Book("ABC", "XYZ", 1992);
-
+        Book b = new Book("ABC", "XYZ", 1992, true);
+        User customer = new User("Aditi", "aditim@thoughtworks.com", "7680043133", "456-7788", "aditim", null, false);
         mainMenu.addBookForTest(b);
 
-        assertTrue(mainMenu.checkOut("ABC"));
+        assertTrue(mainMenu.checkOutBook("ABC",customer));
     }
 
     @Test
     public void mainMenuShouldReturnBook() {
-        Book b = new Book("ABC", "XYZ", 1992);
-
+        Book b = new Book("ABC", "XYZ", 1992, true);
+        User customer = new User("Aditi", "aditim@thoughtworks.com", "7680043133", "456-7788", "aditim", null, false);
         mainMenu.addBookForTest(b);
-        mainMenu.checkOut("ABC");
+        mainMenu.checkOutBook("ABC",customer);
 
-        assertTrue(mainMenu.returnBook(b));
+        assertTrue(mainMenu.returnBook("ABC",customer));
     }
 
-    @After
-    public void tearDown() {
-        mainMenu.clearForTest();
+    @Test
+    public void mainMenuShouldListMovies() {
+        String expected = "ABC DEF";
+        mainMenu.addMovieForTest("ABC", 2010, "Roman Polanski", 7, true);
+        mainMenu.addMovieForTest("DEF", 2010, "Roman Polanski", 7, true);
+
+        assertEquals(expected, mainMenu.listMovies());
     }
+
+    @Test
+    public void mainMenuShouldCheckOutMovie() {
+        mainMenu.addMovieForTest("ABC", 2010, "Roman Polanski", 7, true);
+        boolean expected = mainMenu.checkOutMovie("ABC");
+        assertEquals(expected, true);
+
+    }
+
 }

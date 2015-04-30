@@ -22,6 +22,7 @@ public class User {
         this.password = password;
         this.issuedBooks = issuedBooks;
         this.isLibrarian = isLibrarian;
+        this.issuedBooks = new ArrayList<>();
     }
 
     public String getName() {
@@ -36,7 +37,7 @@ public class User {
         return phNumber;
     }
 
-    public boolean getIsLibrarian() {
+    public boolean isLibrarian() {
         return this.isLibrarian;
     }
 
@@ -48,19 +49,19 @@ public class User {
         return this.password;
     }
 
-    public boolean addIssuedBooks(Book b){
-        this.issuedBooks = new ArrayList<>();
+    public boolean addIssuedBooks(Book b) {
         return this.issuedBooks.add(b);
     }
 
-    public boolean removeIssuedBooks(Book b){
+    public boolean removeIssuedBooks(Book b) {
         return this.issuedBooks.remove(b);
     }
 
-    public String getIssuedBooks(){
-        String res="";
-        for(Book b: this.issuedBooks){
-            res+=b.getName()+"\n";
+    public String getIssuedBooks() {
+        String res = "";
+
+        for (Book b : this.issuedBooks) {
+            res += b.getName() + "\n";
         }
         return res;
     }

@@ -7,11 +7,17 @@ import java.util.ArrayList;
  */
 public class Login {
     private ArrayList<User> listOfUsers;
+    private static Login instance = null;
 
     public Login() {
         listOfUsers = new ArrayList<>();
         this.listOfUsers.add(new User("Aditi", "aditim@thoughtworks.com", "7680043133", "123-9876", "password1", null, true));
-        this.listOfUsers.add(new User("User1", "user1@thoughtworks.com", "7660012315", "345-5678", "password2", null, false));
+        this.listOfUsers.add(new User("User1", "user1@thoughtworks.com", "7660012315", "345-5678", "password2", new ArrayList<Book>(), false));
+    }
+
+    public static Login getInstance() {
+        if (instance == null) instance = new Login();
+        return instance;
     }
 
     public User successfulLogin(String userName, String password) {
@@ -23,10 +29,11 @@ public class Login {
         return null;
     }
 
-    public String listStatus(){
-        String result="";
-        for(User user: this.listOfUsers){
-            result+=user.getName()+" has issued following books\n"+user.getIssuedBooks()+"\n";
+    public String listStatus() {
+        String result = "";
+        for (User user : this.listOfUsers) {
+            if (!user.isLibrarian())
+                result += user.getName() + " has issued following books\n" + user.getIssuedBooks() + "\n";
         }
         return result;
     }

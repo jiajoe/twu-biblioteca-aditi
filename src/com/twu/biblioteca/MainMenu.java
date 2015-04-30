@@ -8,8 +8,18 @@ import java.io.InputStreamReader;
  * Created by aditim on 4/19/15.
  */
 public class MainMenu {
-    private BookCollectionHandler bookHandler = new BookCollectionHandler();
-    private MovieCollectionHandler movieHandler = new MovieCollectionHandler();
+    private BookCollectionHandler bookHandler;
+    private MovieCollectionHandler movieHandler;
+
+    public MainMenu() {
+        bookHandler = new BookCollectionHandler();
+        movieHandler = new MovieCollectionHandler();
+
+        bookHandler.add(new Book("ABC", "XYZ", 1992, true));
+        bookHandler.add(new Book("DEF", "PQR", 1993, true));
+        movieHandler.addMovie(new Movie("Ghost Writer", 2010, "Roman Polanski", 7, true));
+        movieHandler.addMovie(new Movie("Grown ups", 2008, "Something", 6, true));
+    }
 
     public String listBooks() {
         return bookHandler.listAll();
@@ -19,7 +29,7 @@ public class MainMenu {
         bookHandler.add(book);
     }
 
-    public boolean checkOutBook(String name,User user) {
+    public boolean checkOutBook(String name, User user) {
         Book result = bookHandler.searchByName(name);
 
         if (result != null) {
@@ -73,8 +83,8 @@ public class MainMenu {
                 case 2:
                     System.out.print("Enter the book name: ");
                     String book = br.readLine();
-                    if (!checkOutBook(book, user)) ;
-                    System.out.print("Enter a valid Book name");
+                    if (!checkOutBook(book, user))
+                        System.out.print("Enter a valid Book name");
                     break;
 
                 case 3:
@@ -106,12 +116,11 @@ public class MainMenu {
         } while (choice != 6);
     }
 
-    public String showStatus(){
+    public String showStatus() {
         String list;
-        list=new Login().listStatus();
+        list = Login.getInstance().listStatus();
         return list;
     }
-
 
     public void mainMenuForLibrarian() throws IOException {
         int choice;
@@ -138,7 +147,6 @@ public class MainMenu {
 
                 case 3:
                     System.out.println(showStatus());
-
                     break;
 
                 case 4:
@@ -153,16 +161,9 @@ public class MainMenu {
     }
 
     public void showMainMenu(User user) throws IOException {
-        addBookForTest(new Book("ABC", "XYZ", 1992, true));
-        addBookForTest(new Book("DEF", "PQR", 1993, true));
-        movieHandler.addMovie(new Movie("Ghost Writer", 2010, "Roman Polanski", 7, true));
-        movieHandler.addMovie(new Movie("Grown ups", 2008, "Something", 6 , true));
-        if (user.getIsLibrarian())
+        if (user.isLibrarian())
             mainMenuForLibrarian();
         else
             mainMenuForCustomer(user);
-
     }
-
-
 }

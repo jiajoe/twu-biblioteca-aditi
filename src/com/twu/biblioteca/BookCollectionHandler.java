@@ -16,10 +16,10 @@ public class BookCollectionHandler {
         return collection.add(book);
     }
 
-    public boolean checkOut(Book book, User user){
+    public boolean checkOut(Book book, User user) {
         for (Book b : collection) {
             if (b.getName().equals(book.getName())) {
-                if(b.getAvailability()==false){
+                if (!b.getAvailability()) {
                     System.out.println("Book is already checked out.");
                     return false;
                 }
@@ -41,8 +41,10 @@ public class BookCollectionHandler {
     public String listAll() {
         String list = "";
 
-        for (Book b : collection)
-            list += b.getName() + " ";
+        for (Book b : collection) {
+            if (b.getAvailability())
+                list += b.getName() + " ";
+        }
 
         return list.trim();
     }

@@ -7,21 +7,26 @@ import java.io.InputStreamReader;
 public class BibliotecaApp {
 
     public static void main(String[] args) throws IOException {
-        int i = 0;
+        char response;
+        Login login = Login.getInstance();
+        MainMenu menu = new MainMenu();
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         do {
             System.out.print("Welcome to Biblioteca App:\nPlease enter your Library Number: ");
             String userName = br.readLine();
             System.out.print("Password: ");
             String password = br.readLine();
-            Login login = new Login();
             User user = login.successfulLogin(userName, password);
             if (user != null) {
-                new MainMenu().showMainMenu(user);
+                menu.showMainMenu(user);
             } else {
-                System.out.println("Invalid Credentials. Press 1 to enter again");
-                i = Integer.parseInt(br.readLine());
+                System.out.println("Invalid Credentials");
             }
-        } while (i == 1);
+
+            System.out.print("Login again? (y/n): ");
+            response = (char) br.read();
+            br.read();
+        } while (response == 'y');
     }
 }
